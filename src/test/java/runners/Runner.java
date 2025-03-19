@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		features = "src/test/resources", // Özellik dosyalarınızın yolu
 		glue = "stepDefinitions", // Adım tanımları ve hooks class'inin oldugu paketiniz
-		tags = "@executeUpdate02", // Çalıştırılacak testlerin etiketleri
+		tags = "@deposits", // Çalıştırılacak testlerin etiketleri
 		plugin = {"pretty", "html:target/cucumber-reports.html",
 				"json:target/cucumber.json"},
 		monochrome = false

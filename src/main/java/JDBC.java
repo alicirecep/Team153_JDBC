@@ -108,6 +108,5 @@ public class JDBC {
 		resultSet.isAfterLast();
 
 
-
 	}
 }
