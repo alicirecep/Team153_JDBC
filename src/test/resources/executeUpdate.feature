@@ -14,3 +14,27 @@ Feature: executeUpdate Testleri
 
 
 
+
+      # Database üzerinde "device_tokens" tablosuna istenen veriyi
+      # tek sorguda ekleyiniz.
+
+      @deviceTokensInsert
+      Scenario: device_tokens tablosuna veri ekleme testi.
+        * (device_tokens) insert sorgusu hazirlanir ve calistirilir.
+        * (device_tokens) sonuclari islenir.
+        * Database baglantisi sonlandirilir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

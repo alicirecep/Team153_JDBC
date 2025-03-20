@@ -20,6 +20,7 @@ public class StepDefinition {
 	String Query;
 	PreparedStatement preparedStatement;
 	int row;
+	int insertID;
 
 	@Given("Database ile baglanti kurulur.")
 	public void database_ile_baglanti_kurulur() throws SQLException {
@@ -133,6 +134,43 @@ public class StepDefinition {
 		JDBCReusableMethods.closeConnection();
 
 	}
+
+
+	@Given("\\(device_tokens) insert sorgusu hazirlanir ve calistirilir.")
+	public void device_tokens_insert_sorgusu_hazirlanir_ve_calistirilir() throws SQLException {
+
+	 Query = queryManage.getDeviceTokensInsertQuery();
+	 preparedStatement = JDBCReusableMethods.getConnection().prepareStatement(Query);
+	 // insert into device_tokens (id, user_id, is_app, token)values (?,?,?,?)
+
+		insertID = 864;
+		preparedStatement.setInt(1,insertID);
+		preparedStatement.setInt(2,677);
+		preparedStatement.setInt(3,1);
+		preparedStatement.setString(4,"Team177");
+
+		row = preparedStatement.executeUpdate();
+
+		Query = queryManage.getDeviceTokensInsertDogrulama();
+		preparedStatement = JDBCReusableMethods.getConnection().prepareStatement(Query);
+		preparedStatement.setInt(1,insertID);
+		resultSet = preparedStatement.executeQuery();
+
+		resultSet.next();
+		System.out.println(resultSet.getString("id"));
+		assertEquals(resultSet.getInt("id"), insertID);
+
+	}
+	@Given("\\(device_tokens) sonuclari islenir.")
+	public void device_tokens_sonuclari_islenir() {
+
+		assertEquals(row,1);
+
+	}
+
+
+
+
 
 
 

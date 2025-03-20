@@ -55,7 +55,21 @@ SELECT * FROM users
 WHERE username like '%e_';
 
 
-UPDATE users SET mobile = ? WHERE username like ?;]]></console>
+UPDATE users SET mobile = ? WHERE username like ?;
+
+SELECT * FROM device_tokens;
+
+insert into device_tokens (id, user_id, is_app, token)values (111,5555,1,'token153');
+
+
+/*
+
+user_id int(10) UN 
+is_app tinyint(1) 
+token text 
+created_at timestamp 
+updated_at timestamp
+*/]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -68,6 +82,7 @@ UPDATE users SET mobile = ? WHERE username like ?;]]></console>
     <connection id="a30e0946-d861-4f44-bace-7a4b2760a6ba" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="a30e0946-d861-4f44-bace-7a4b2760a6ba" dataset="u201212290_qaloantec.device_tokens" active-filter-id="" />
     <filter-actions connection-id="a30e0946-d861-4f44-bace-7a4b2760a6ba" dataset="u201212290_qaloantec.users" active-filter-id="f565b389-521b-45cb-84d5-c2e9e550d8ec">
       <filter id="92630615-08ee-4d01-908c-5eaa4d02c118" name="first_filter" temporary="false" custom-name="true" type="basic" join-type="OR">
         <condition column="firstname" operator="=" value="Elf" active="true" />
