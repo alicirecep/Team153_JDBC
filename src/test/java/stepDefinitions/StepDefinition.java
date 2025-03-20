@@ -1,6 +1,8 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.Given;
+import manage.QueryManage;
+import utilities.JDBCReusableMethods;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,10 @@ public class StepDefinition {
 	Connection connection;
 	Statement statement;
 	ResultSet resultSet;
+	QueryManage queryManage = new QueryManage();
+	String Query;
+	PreparedStatement preparedStatement;
+	int row;
 
 	@Given("Database ile baglanti kurulur.")
 	public void database_ile_baglanti_kurulur() throws SQLException {
@@ -65,6 +71,67 @@ public class StepDefinition {
 		resultSet.close();
 		statement.close();
 		connection.close();
+	}
+
+
+
+	@Given("Cron_schedules SQL Querysi hazirlanir ve calistirilir.")
+	public void cron_schedules_sql_querysi_hazirlanir_ve_calistirilir() {
+
+		resultSet = JDBCReusableMethods.executeQuery(queryManage.getCroneSchedulesQuery());
+
+	}
+	@Given("Cron_schedules'den gelen sonuclar dogrulanir.")
+	public void cron_schedules_den_gelen_sonuclar_dogrulanir() throws SQLException {
+
+
+		List<String> expectedResultList = new ArrayList<>();
+		expectedResultList.add("5 Minutes");
+		expectedResultList.add("10 Minutes");
+
+		List<String> actualResultList = new ArrayList<>();
+
+		while(resultSet.next()){
+			actualResultList.add(resultSet.getString("name"));
+
+		}
+
+		assertEqualsNoOrder(actualResultList, expectedResultList);
+
+	}
+
+
+// *********************************************************************
+
+	@Given("Database baglantisi olusturulur.")
+	public void database_baglantisi_olusturulur() {
+		JDBCReusableMethods.createConnection();
+	}
+	@Given("\\(users) SQL Querys'si hazirlanir ve calistirilir.")
+	public void users_sql_querys_si_hazirlanir_ve_calistirilir() throws SQLException {
+
+		Query = queryManage.getUsersUpdateQuery();
+		preparedStatement = JDBCReusableMethods.getConnection().prepareStatement(Query);
+
+		// UPDATE users SET mobile = ? WHERE username like ?
+
+		preparedStatement.setString(1, "77777");
+		preparedStatement.setString(2, "%e_");
+
+		row = preparedStatement.executeUpdate();
+	}
+	@Given("\\(users) Sonuclar islenir.")
+	public void users_sonuclar_islenir() {
+
+		System.out.println("etkilenen satir sayisi: " + row);
+		assertEquals(row,5);
+
+	}
+	@Given("Database baglantisi sonlandirilir.")
+	public void database_baglantisi_sonlandirilir() {
+
+		JDBCReusableMethods.closeConnection();
+
 	}
 
 

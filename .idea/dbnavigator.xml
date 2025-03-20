@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
@@ -19,7 +19,7 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
@@ -36,19 +36,33 @@ SELECT DISTINCT user_id FROM deposits WHERE amount BETWEEN 100 AND 500;
 
 
 
-"SELECT DISTINCT user_id \n" +
-			"FROM deposits \n" +
-			"WHERE amount \n" +
-			"BETWEEN 100 AND 500;";]]></console>
+/*
+Database içindeki "cron_schedules" tablosunda 
+ilk 2 kaydın "name" bilgisini doğrulayınız
+*/
+
+SELECT name FROM cron_schedules LIMIT 2;
+
+/*
+  # "users" tablosunda sondan bir önceki harfi e olan
+  # "usernamelerin" "mobile" numarasını update ediniz
+*/
+
+
+UPDATE users SET mobile = 12345 WHERE username like '%e_';
+
+SELECT * FROM users
+WHERE username like '%e_';
+
+
+UPDATE users SET mobile = ? WHERE username like ?;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="a30e0946-d861-4f44-bace-7a4b2760a6ba" object-ref="consoles/team153_JDBC" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="a30e0946-d861-4f44-bace-7a4b2760a6ba" />

@@ -62,6 +62,7 @@ public class JDBC {
 		resultSet.next();
 		resultSet.next();
 		System.out.println(resultSet.getString("mobile"));
+
 		/*
 		   Elf
 		   test@gmail.com
